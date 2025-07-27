@@ -59,9 +59,21 @@ function HomeScreen({ navigation }: Props) {
         activeOpacity={0.6}
         disabled={!isButtonEnabled}
         onPress={() => {
-          navigation.navigate('Assignment', undefined);
           Keyboard.dismiss();
-          Alert.alert('Username: ' + userName + ', \nPassword: ' + password);
+          Alert.alert(
+            'Login Info',
+            `Username: ${userName}\nPassword: ${password}`,
+            [
+              {
+                text: 'OK',
+                onPress: () => {
+                  navigation.navigate('Assignment', undefined);
+                  console.log('User clicked OK');
+                  // Add your logic here
+                },
+              },
+            ]
+          );
         }}
       >
         <Text style={styles.buttonText}>Tap Me</Text>

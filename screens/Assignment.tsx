@@ -14,7 +14,7 @@ import DarkModeToggle from '../components/DarkModeToggle';
 const Assignment: React.FC = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView nestedScrollEnabled={true} contentContainerStyle={styles.container}>
         <Text style={styles.title}>React Native Assignment Project</Text>
 
         <Section title="1. Counter">
