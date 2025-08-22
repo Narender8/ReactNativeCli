@@ -21,10 +21,16 @@ import { showConfirmationAlert } from '../components/ShowCustomAlert';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types/navigation';
 import ViewPager from '@react-native-community/viewpager';
+import { useAuth } from '../auth/AuthContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 function HomeScreen({ navigation }: Props) {
+
+  const { token } = useAuth();
+  const [loading, setLoading] = useState(false);
+
+
   const isDarkMode = useColorScheme() === 'dark';
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -33,6 +39,17 @@ function HomeScreen({ navigation }: Props) {
 
   const handlePress = () => {
     navigation.navigate('Second', { name: userName });
+  };
+
+    const handleSecureLoginCheck = async () => {
+    setLoading(true);
+
+    if (token) {
+      navigation.navigate("AuthHome", undefined);   // replace → removes Splash from back stack
+    } else {
+      navigation.navigate("AuthLogin", undefined);
+    }
+    setLoading(false);
   };
 
   return (
@@ -76,7 +93,7 @@ function HomeScreen({ navigation }: Props) {
           );
         }}
       >
-        <Text style={styles.buttonText}>Tap Me</Text>
+      <Text style={styles.buttonText}>Tap Me</Text>
       </TouchableOpacity>
       <Button
         title="Click Me"
@@ -96,9 +113,35 @@ function HomeScreen({ navigation }: Props) {
           );
         }}
       />
+
+      <Text style={styles.assignmentsText}>Assignments</Text>
+      <TouchableOpacity
+        style={[styles.button]}
+        activeOpacity={0.6}
+        onPress={() => {
+          Keyboard.dismiss();
+          navigation.navigate('NewsReaderApp', undefined);
+        }}
+      >
+      <Text style={styles.buttonText}>News Reader App</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button]}
+        activeOpacity={0.6}
+        onPress={() => {
+          Keyboard.dismiss();
+          handleSecureLoginCheck();
+        }}
+      >
+      <Text style={styles.buttonText}>Secure Login</Text>
+      </TouchableOpacity>
+
     </View>
   );
+  
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -111,7 +154,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Courier New',
     color: 'black',
     fontWeight: 'bold',
-    marginTop: 100,
+    marginTop: 50,
+  },
+  assignmentsText: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontFamily: 'Courier New',
+    color: 'black',
+    fontWeight: 'bold',
+    marginTop: 20,
   },
   inputfield: {
     height: 50,

@@ -15,11 +15,18 @@ import HomeScreen from './screens/HomeScreen';
 import SecondScreen from './screens/SecondScreen';
 import MyViewPager from './components/ViewPager';
 import Assignment from './screens/Assignment';
+import { NewAppScreen } from '@react-native/new-app-screen';
+import NewsReaderApp from './screens/newsAssignment/NewsReaderApp';
+import { AuthProvider, useAuth } from './auth/AuthContext';
+import AuthLoginScreen from './screens/secureLoginAssignment/AuthLoginScreen';
+import AuthHomeScreen from './screens/secureLoginAssignment/AuthHomeScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
+
   return (
+     <AuthProvider>
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
@@ -80,9 +87,61 @@ const App = () => {
                         fontSize: 20,
                       },
                     }}/>
-          
-      </Stack.Navigator>
+
+          <Stack.Screen name="NewsReaderApp" component={NewsReaderApp} 
+                    options={{
+                      headerShown: true,
+                      headerTitle: 'News Reader App',
+                      headerStyle: {
+                        backgroundColor: 'blue',
+                      },
+                      headerTintColor: 'white',
+                      headerTitleAlign: 'center',
+                      headerBackTitle: 'Back',
+                      headerTitleStyle: {
+                        fontWeight: 'regular',
+                        color: 'white',
+                        fontSize: 20,
+                      },
+          }}/>
+
+          <Stack.Screen name="AuthLogin" component={AuthLoginScreen} 
+                    options={{
+                      headerShown: true,
+                      headerTitle: 'Auth Login',
+                      headerStyle: {
+                        backgroundColor: 'blue',
+                      },
+                      headerTintColor: 'white',
+                      headerTitleAlign: 'center',
+                      headerBackTitle: 'Back',
+                      headerTitleStyle: {
+                        fontWeight: 'regular',
+                        color: 'white',
+                        fontSize: 20,
+                      },
+          }}/>
+
+          <Stack.Screen name="AuthHome" component={AuthHomeScreen} 
+                    options={{
+                      headerShown: true,
+                      headerTitle: 'Dashboard',
+                      headerStyle: {
+                        backgroundColor: 'blue',
+                      },
+                      headerTintColor: 'white',
+                      headerTitleAlign: 'center',
+                      headerBackTitle: 'Back',
+                      headerTitleStyle: {
+                        fontWeight: 'regular',
+                        color: 'white',
+                        fontSize: 20,
+                      },
+           }}/>
+
+    </Stack.Navigator>
     </NavigationContainer>
+    </AuthProvider>
   );
 };
 

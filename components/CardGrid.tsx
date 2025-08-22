@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const cards = ['Card A', 'Card B', 'Card C', 'Card D'];
+const cards = ['Card A', 'Card B', 'Card C', 'Card D', 'Card E'];
 
 const CardGrid: React.FC = () => {
   return (
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   card: {
-    width: '45%',
+    width: '20%',
     backgroundColor: '#eee',
     padding: 16,
     borderRadius: 8,
